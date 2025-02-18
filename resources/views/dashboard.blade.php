@@ -22,4 +22,5 @@
 </x-app-layout>
 <script>
     window.userRole = "{{ auth()->user()->role }}";
+    window.user = @json(auth()->user());
 </script>

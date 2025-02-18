@@ -1,16 +1,20 @@
 <template>
-  <div>
-    <h3>Welcome, student!</h3>
-    <p>You have completed X worksheets.</p>
-  </div>
+	<div>
+		<p>You have completed X worksheets.</p>
+	</div>
 </template>
 
 <script>
 export default {
-  name: 'StudentDashboard',
+	name: 'StudentDashboard',
+
+	computed: {
+		isProfessor() {
+			return this.user.role === 'professor';
+		},
+		isStudent() {
+			return this.user.role === 'student';
+		},
+	}
 };
 </script>
-
-<style scoped>
-/* Student-specific styles */
-</style>

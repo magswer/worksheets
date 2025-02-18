@@ -1,7 +1,9 @@
 <template>
 	<div>
-		<h3>Welcome, professor!</h3>
-		<p>You have created {{ this.professorWorksheetsTotal }} worksheets.</p>
+        <div v-if="this.hasProfessorWorksheets">
+            <h3>Your worksheets list:</h3>
+        </div>
+        <p v-else> You have no worksheets created yet. </p>
 	</div>
 </template>
 
@@ -21,12 +23,9 @@ export default {
 		isStudent() {
 			return this.user.role === 'student';
 		},
-		professorWorksheetsTotal() {
-			if (!this.isProfessor) {
-				return 0;
-			}
-			return this.worksheets.filter(worksheets => worksheets.created_by === this.user.id).length;
-		}
+        hasProfessorWorksheets(){
+            return this.isProfessor && this.worksheets.created_by === this.user.id > 0; 
+        }
 	},
 };
 </script>
