@@ -30,4 +30,20 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function worksheets()
+    {
+        return $this->hasMany(Worksheet::class, 'created_by');
+    }
+    
+    public function assignments()
+    {
+        return $this->hasMany(Assignment::class, 'student_id');
+    }
+
+    public function studentWorksheets()
+    {
+        return $this->hasMany(StudentWorksheet::class, 'student_id');
+    }
+
 }

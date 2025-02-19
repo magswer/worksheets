@@ -5,10 +5,6 @@ use App\Http\Controllers\ProfessorController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
@@ -17,19 +13,21 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware('auth')->name('dashboard');
 
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Route::get('/professor-dashboard', [ProfessorController::class, 'index'])
-//     ->middleware(['auth', 'role:professor'])
-//     ->name('ProfessorDashboardComponent');
-
-// Route::get('/student-dashboard', [StudentController::class, 'index'])
-//     ->middleware(['auth', 'role:student'])
-//     ->name('StudentDashboardComponent');
-
+Route::middleware('auth')->group(function () {
+    Route::prefix('professor')->middleware('role:professor')->group(function () {
+        Route::get('/worksheets', [ProfessorController::class, 'index'])->name('professor.worksheets.index');
+        Route::get('/worksheets/create', [ProfessorController::class, 'create'])->name('professor.worksheets.create');
+        Route::post('/worksheets', [ProfessorController::class, 'store'])->name('professor.worksheets.store');
+        Route::get('/worksheets/{id}', [ProfessorController::class, 'show'])->name('professor.worksheets.show');
+        Route::get('/worksheets/{id}/edit', [ProfessorController::class, 'edit'])->name('professor.worksheets.edit');
+        Route::put('/worksheets/{id}', [ProfessorController::class, 'update'])->name('professor.worksheets.update');
+        Route::delete('/worksheets/{id}', [ProfessorController::class, 'destroy'])->name('professor.worksheets.destroy');
+    });
+});
 require __DIR__.'/auth.php';

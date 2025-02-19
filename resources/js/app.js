@@ -1,17 +1,13 @@
-// import { createApp } from 'vue';
-// import App from '../views/App.vue';
-
-// const appElement = document.getElementById('app');
-// if (appElement) {
-//     createApp(App).mount('#app');
-// }
-
 import Alpine from 'alpinejs';
 
 window.Alpine = Alpine;
 Alpine.start();
 
+
 import { createApp } from 'vue';
 import App from './App.vue';
+import router from './router';
 
-createApp(App).mount('#vue-app');
+const app = createApp(App);
+app.use(router);
+app.mount('#vue-app');
