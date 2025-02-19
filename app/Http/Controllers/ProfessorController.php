@@ -59,12 +59,17 @@ class ProfessorController extends Controller
 
     public function destroy(Worksheet $worksheet)
     {
-        if ($worksheet->created_by !== auth()->id()) {
-            return abort(403, 'Unauthorized');
+        if (!auth()->check()) {
+            return response()->json(['message' => 'Unauthorized'], 401);
         }
-
+    
+        if ($worksheet->created_by !== auth()->id()) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+    
         $worksheet->delete();
-
+    
         return response()->json(['message' => 'Worksheet deleted successfully']);
     }
+        
 }
