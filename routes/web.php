@@ -29,5 +29,9 @@ Route::middleware('auth')->group(function () {
         Route::put('/worksheets/{id}', [ProfessorController::class, 'update'])->name('professor.worksheets.update');
         Route::delete('/worksheets/{id}', [ProfessorController::class, 'destroy'])->name('professor.worksheets.destroy');
     });
+
+    Route::get('/student/completed-worksheets', [StudentController::class, 'getCompletedWorksheets'])
+    ->name('student.completedWorksheets');
+
 });
 require __DIR__.'/auth.php';

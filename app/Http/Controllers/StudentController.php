@@ -1,13 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Http\Request;
 
-abstract class StudentController
+class StudentController extends Controller
 {
-    public function index()
-{
-    // Count how many fichas the student has completed
-    $completedCount = CompletedFicha::where('user_id', auth()->id())->count();
-    return view('student.dashboard', compact('completedCount'));
-}
+    public function getCompletedWorksheets()
+    {
+        $studentWorksheets = auth()->user()->studentWorksheets;
+        return response()->json($studentWorksheets);
+    }
 }

@@ -35,7 +35,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Worksheet::class, 'created_by');
     }
-    
+
     public function assignments()
     {
         return $this->hasMany(Assignment::class, 'student_id');
@@ -45,5 +45,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(StudentWorksheet::class, 'student_id');
     }
-
 }
